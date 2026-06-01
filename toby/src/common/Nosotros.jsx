@@ -1,5 +1,4 @@
 // Pagina que incluya información del equipo y el sitio.
-import React from "react";
 import "./Nosotros.css";
 
 function Nosotros() {

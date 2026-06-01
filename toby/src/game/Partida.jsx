@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getSocket, connectSocket } from '../common/socket'
 import Board from './Board'
@@ -13,7 +13,7 @@ function getUserIdFromToken() {
   try {
     const payload = JSON.parse(atob(t.split('.')[1]))
     return payload.sub || payload.userId || null
-  } catch (e) {
+  } catch {
     return null
   }
 }
@@ -26,9 +26,8 @@ export default function Partida(){
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState('')
   const [lastRoll, setLastRoll] = useState(null)
-  const [polling, setPolling] = useState(false)
+  //const [polling, setPolling] = useState(false)
   const [turnoActual, setTurnoActual] = useState(null)
-  const socket = getSocket()
 
   function handleActualizada(payload = {}){
     try{
@@ -40,7 +39,7 @@ export default function Partida(){
       const found = (payload.jugadores || jugadores || []).find(j => Number(j.usuario_id) === userSub || Number(j.jugador_id) === currentStored)
       setJugador(found || null)
       if (found && found.jugador_id) localStorage.setItem('currentJugadorId', String(found.jugador_id))
-    }catch(e){ /* ignore */ }
+    }catch { /* ignore */ }
   }
 
   useEffect(() => {
@@ -69,11 +68,11 @@ export default function Partida(){
     }
     fetchEstado()
   }, [id])
-  // polling effect: re-fetch while waiting for players
+  // polling effect: 
   useEffect(() => {
     let timer = null
     if (partida && partida.estado === 'en_espera') {
-      setPolling(true)
+      //setPolling(true)
       timer = setInterval(() => {
         fetch(`${BASE_URL}/partidas/${id}/estado`, { headers: localStorage.getItem('token') ? { Authorization: `Bearer ${localStorage.getItem('token')}` } : {} })
           .then(r => r.ok ? r.json() : Promise.reject(r.status))
@@ -89,7 +88,7 @@ export default function Partida(){
           }).catch(() => {})
       }, 2500)
     } else {
-      setPolling(false)
+      //setPolling(false)
     }
 
     return () => {
@@ -97,7 +96,6 @@ export default function Partida(){
     }
   }, [id, partida])
 
-  // socket effect: ensure connected and join room, listen for updates
   useEffect(() => {
     let s = getSocket()
     if (!s || !s.connected) {
@@ -106,7 +104,6 @@ export default function Partida(){
     }
     if (!s) return
 
-    // join the partida room so we receive broadcasts
     s.emit('partida:unirse', { partidaId: id })
 
     s.on('partida:actualizada', handleActualizada)
@@ -115,6 +112,7 @@ export default function Partida(){
       s.off('partida:actualizada', handleActualizada)
       s.emit('partida:salir', { partidaId: id })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 
   async function handleTirar(){
@@ -147,6 +145,12 @@ export default function Partida(){
       setLastRoll(body)
       if (body.jugador_actual) {
         setJugador(prev => ({ ...(prev||{}), casilla_actual: body.jugador_actual.casilla, nivel: body.jugador_actual.nivel, monedas: body.jugador_actual.monedas }))
+      }
+      // actualizar turno actual si el backend lo devuelve (fallback si el socket no lo incluye)
+      if (body.turno_actual) {
+        setTurnoActual(body.turno_actual)
+      } else if (body.siguiente_turno) {
+        setTurnoActual({ jugador_id: body.siguiente_turno.jugador_id, orden_juego: body.siguiente_turno.orden_juego, numero_turno: body.siguiente_turno.numero_turno })
       }
       if (body.victoria) {
         setMessage(`Has ganado! Felicitaciones ${body.ganador.nombre}`)

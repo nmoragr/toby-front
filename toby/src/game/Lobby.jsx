@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './lobby.css'
 
@@ -20,7 +20,7 @@ function getUserIdFromToken() {
   try {
     const payload = JSON.parse(atob(token.split('.')[1] || ''))
     return payload.sub || payload.userId || null
-  } catch (error) {
+  } catch {
     return null
   }
 }
@@ -67,6 +67,7 @@ export default function Lobby() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchPartidas()
   }, [])
 

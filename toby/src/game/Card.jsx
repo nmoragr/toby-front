@@ -6,10 +6,7 @@ import { GameContext } from './Board';
 export default function Card({id, imgSrc}){
   const [showImage, setShowImage] = useState(true);
 
-  const {
-    guess,
-    setGuess } = useContext(GameContext);
-  
+  const { setGuess } = useContext(GameContext);
 
   const toggleImage =() => {
     setShowImage(!showImage);

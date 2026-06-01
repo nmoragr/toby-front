@@ -48,7 +48,7 @@ export default function LoginRegister({ defaultRegister = false }){
           const payload = JSON.parse(atob(token.split('.')[1] || ''))
           const uid = payload.sub || payload.userId || null
           if (uid) localStorage.setItem('userId', String(uid))
-        } catch (e) {
+        } catch {
           // noop
         }
         connectSocket()
