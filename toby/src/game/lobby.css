@@ -1,0 +1,113 @@
+.lobby-root {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 12px;
+}
+
+.partida-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+.partida-item {
+  min-height: 100vh;
+  background-color: #F5A623;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  box-sizing: border-box;
+}
+
+.lobby-title {
+  font-size: 3rem;
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  margin: 0 0 40px 0;
+}
+
+.partida-actions button {
+  padding: 8px 12px;
+.partida-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.partida-card {
+  background-color: #B5CDA3;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.partida-card:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.partida-card h3 {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.partida-card ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.partida-card ul li {
+  color: white;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.lobby-actions {
+  margin-bottom: 32px;
+}
+
+.create-button {
+  background-color: #D4A0D4;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  padding: 16px 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.create-button:hover {
+  opacity: 0.85;
+}
+
+.lobby-info {
+  color: white;
+  text-align: center;
+}
+
+.lobby-error {
+  background: #fff1f1;
+  color: #9b1c1c;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 500px) {
+  .partida-grid {
+    grid-template-columns: 1fr;
+  }
+  .lobby-title {
+    font-size: 2rem;
+  }
+}

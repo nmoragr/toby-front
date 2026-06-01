@@ -1,0 +1,133 @@
+.auth-root {
+  min-height: 100vh;
+  background-color: #F5A623;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+.auth-title {
+  font-size: 2.8rem;
+  color: white;
+  font-weight: 300;
+  text-align: center;
+  margin: 0 0 36px 0;
+  max-width: 480px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 540px;
+}
+
+.auth-form label {
+  display: none;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 18px 24px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  background: white;
+  color: #555;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.auth-form input::placeholder {
+  color: #aaa;
+}
+
+.auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.auth-actions button {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #B5CDA3;
+  color: white;
+  transition: opacity 0.2s;
+}
+
+.auth-actions button:hover {
+  opacity: 0.85;
+}
+
+.auth-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-toggle {
+  background-color: #D4A0D4 !important;
+}
+
+.auth-error {
+  width: 100%;
+  color: #9b1c1c;
+  background: #fff1f1;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Avatar selector */
+.avatar-section {
+  width: 100%;
+}
+
+.avatar-section p {
+  color: white;
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.avatar-grid {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.avatar-item {
+  background: white;
+  border: 3px solid transparent;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+}
+
+.avatar-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.avatar-item.selected {
+  border-color: white;
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.5);
+}

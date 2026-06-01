@@ -1,0 +1,63 @@
+body {
+    background-color: aliceblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 5%;
+}
+
+h1 {
+    color: rgb(0, 157, 255);
+    text-align: center;
+}
+
+.title {
+    font-size: 50px;
+    color: skyblue;
+    text-align: center;
+}
+
+.subtitle {
+    color: #40d1d1;
+    text-align: center;
+}
+
+.main-div {
+    display: flex;
+}
+
+img.board-image {
+    width: 20%;
+}
+
+.description {
+    text-align: justify;
+    margin-right: 5%;
+}
+
+.board-div {
+    display: grid;
+    grid-template-columns: repeat(100, 1%);
+    justify-content: center;
+}
+
+/* Hacemos referencia a todo lo que está dentro del tablero */
+.board-div :nth-child(n) {
+    border: 1px solid white;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 20%;
+    margin: 0%;
+}
+
+/* Uso hover para que cada vez que paso el número por encima cambie de color| */
+.board-div :nth-child(n):hover {
+    background-color: rgb(0, 157, 255);
+    color: white;
+}
+
+/* Lo hacemo adaptable a celulares. Si el dispositivo tienen menos de 600 pix se ejecuta esto */
+@media screen and (max-width: 600px) {
+    img {
+        display: none;
+    }
+}
