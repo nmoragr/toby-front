@@ -1,23 +1,25 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { disconnectSocket } from '../common/socket'
-import './Navbar.css'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { disconnectSocket } from '../common/socket';
+import './Navbar.css';
 
 function Navbar() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const isLoggedIn = !!localStorage.getItem('token')
-  const nombreUsuario = localStorage.getItem('nombre')
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem('token');
+  const nombreUsuario = localStorage.getItem('nombre');
+  const isAdmin = localStorage.getItem('rol') === 'admin';
 
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => location.pathname === path;
 
   function handleLogout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userId')
-    localStorage.removeItem('nombre')
-    localStorage.removeItem('currentJugadorId')
-    localStorage.removeItem('currentPartidaId')
-    disconnectSocket()
-    navigate('/')
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('nombre');
+    localStorage.removeItem('rol');
+    localStorage.removeItem('currentJugadorId');
+    localStorage.removeItem('currentPartidaId');
+    disconnectSocket();
+    navigate('/');
   }
 
   return (
@@ -45,6 +47,13 @@ function Navbar() {
           </li>
           {isLoggedIn ? (
             <>
+              {isAdmin && (
+                <li>
+                  <Link to="/admin" className={`navbar-link ${isActive('/admin') ? 'active' : ''}`}>
+                    Admin
+                  </Link>
+                </li>
+              )}
               <li>
                 <span className="navbar-username">Hola, {nombreUsuario}</span>
               </li>
@@ -71,7 +80,7 @@ function Navbar() {
         </ul>
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

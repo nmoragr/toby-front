@@ -1,7 +1,11 @@
 .lobby-root {
-  max-width: 900px;
-  margin: 24px auto;
-  padding: 12px;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background-color: #F5A623;
+  margin: 0;
+  padding: 24px 20px;
+  box-sizing: border-box;
 }
 
 .partida-list {
@@ -29,6 +33,7 @@
 
 .partida-actions button {
   padding: 8px 12px;
+}
 .partida-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -103,11 +108,76 @@
   margin-bottom: 16px;
 }
 
+/* ── Selector de tablero ── */
+.tablero-selector {
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.tablero-selector-label {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 14px 0;
+}
+
+.tablero-opciones {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.tablero-opcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 22px;
+  border-radius: 16px;
+  border: 3px solid transparent;
+  cursor: pointer;
+  background-color: #B5CDA3;
+  transition: transform 0.15s, border-color 0.15s, opacity 0.15s;
+  min-width: 120px;
+}
+
+.tablero-opcion:hover {
+  transform: translateY(-2px);
+  opacity: 0.92;
+}
+
+.tablero-opcion--activo {
+  border-color: white;
+  background-color: #D4A0D4;
+}
+
+.tablero-emoji {
+  font-size: 2rem;
+}
+
+.tablero-nombre {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.tablero-desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.75rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
 @media (max-width: 500px) {
   .partida-grid {
     grid-template-columns: 1fr;
   }
   .lobby-title {
     font-size: 2rem;
+  }
+  .tablero-opciones {
+    flex-direction: column;
+    align-items: center;
   }
 }

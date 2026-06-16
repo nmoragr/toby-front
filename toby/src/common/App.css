@@ -48,3 +48,16 @@
   background-color: #D4A0D4;
   color: white;
 }
+
+.home-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  margin: -32px 0 0 0;
+  text-align: center;
+}
+
+.home-btn.outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}

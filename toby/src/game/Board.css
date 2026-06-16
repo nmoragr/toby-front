@@ -66,16 +66,37 @@
 }
 
 .player-token {
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 2px solid white;
-  font-size: 0.45rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  transition: transform 0.08s ease;
+}
+
+@keyframes token-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.5) translateY(-4px); }
+  100% { transform: scale(1); }
+}
+
+@keyframes cell-flash {
+  0%   { filter: brightness(1); }
+  50%  { filter: brightness(1.5); }
+  100% { filter: brightness(1); }
+}
+
+.player-token--animando {
+  animation: token-bounce 0.11s ease forwards;
+  z-index: 10;
+  box-shadow: 0 0 6px rgba(255,255,255,0.9);
+}
+
+.cell--paso {
+  animation: cell-flash 0.11s ease forwards;
 }
 
 .player-color-0 { background-color: #e63946; }
@@ -92,6 +113,14 @@
   line-height: 1;
 }
 
+.cell-monster-icon {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
 @media (max-width: 700px) {
   .cell {
     width: 34px;
@@ -101,7 +130,44 @@
     font-size: 0.5rem;
   }
   .player-token {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
+  }
+  .player-token svg {
+    width: 8px;
+    height: 8px;
   }
 }
+
+/* ── Animaciones de ríos y viento en SVG overlay ── */
+@keyframes river-flow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -56; }
+}
+
+@keyframes wind-flow {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -54; }
+}
+
+@keyframes wind-flow-fast {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: -36; }
+}
+
+.river-flow      { animation: river-flow      1.4s linear infinite; }
+.wind-flow       { animation: wind-flow       0.9s linear infinite; }
+.wind-flow-fast  { animation: wind-flow-fast  0.5s linear infinite; }
+
+/* ── Temas de dificultad ── */
+/* Fácil: verde más claro y rosado más suave */
+.board-theme-facil .cell.green  { background-color: #cde8b8; }
+.board-theme-facil .cell.purple { background-color: #f0cef0; }
+.board-theme-facil .board       { border-color: #cde8b8; background: #f0cef0; }
+
+/* Medio: colores originales, no se toca nada */
+
+/* Difícil: verde más oscuro y rosado más intenso */
+.board-theme-dificil .cell.green  { background-color: #8aad78; }
+.board-theme-dificil .cell.purple { background-color: #c070c0; }
+.board-theme-dificil .board       { border-color: #9a609a; background: #c8a0c8; }

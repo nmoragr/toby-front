@@ -1,14 +1,14 @@
 //import React, { useState, useEffect } from 'react'
-import './instructions.css'
-import { useState, useEffect } from 'react'
+import './instructions.css';
+import { useState, useEffect } from 'react';
 
 function Instructions() {
-  const [secondsReading, setSecondsReading] = useState(0)
+  const [secondsReading, setSecondsReading] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setSecondsReading(s => s + 1), 1000)
-    return () => clearInterval(id)
-  }, [])
+    const id = setInterval(() => setSecondsReading(s => s + 1), 1000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="instructions-root">

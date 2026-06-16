@@ -4,41 +4,6 @@
   min-height: 100vh;
   background: #f0c0e0;
 }
-.partida-header {
-  margin-bottom: 16px;
-  text-align: center;
-}
-.players-section {
-  margin-bottom: 24px;
-}
-.players-list {
-  display: grid;
-  gap: 8px;
-  padding-left: 24px;
-}
-.player-box {
-  border:1px solid #ddd;
-  padding:12px;
-  border-radius:8px;
-  margin-bottom:12px;
-  text-align: center;
-}
-.player-stats {
-  display: grid;
-  gap: 8px;
-  justify-content: center;
-  margin: 0 0 16px;
-}
-.player-stats div {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-.player-stats dt {
-  font-weight: 700;
-}
-.player-stats dd {
-  margin: 0;
 
 /* ── fila principal: sidebar + tablero ── */
 .partida-main {
@@ -173,6 +138,39 @@
   cursor: not-allowed;
 }
 
+.waiting-start {
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 18px 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.16);
+  min-width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes dado-spin {
+  0%   { transform: rotate(0deg)   scale(1); }
+  25%  { transform: rotate(90deg)  scale(1.2); }
+  50%  { transform: rotate(180deg) scale(0.9); }
+  75%  { transform: rotate(270deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.dice-btn--rolando {
+  background: #c8c8a0;
+}
+
+.dado-rolling {
+  font-size: 2rem;
+  display: inline-block;
+  animation: dado-spin 0.5s linear infinite;
+}
+
 .start-btn {
   background: #B5CDA3;
   color: white;
@@ -215,3 +213,461 @@
   border-radius: 8px;
   font-size: 0.9rem;
 }
+
+.sidebar-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.turno-info {
+  font-size: 0.82rem;
+  color: #444;
+  text-align: center;
+  background: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.turno-badge {
+  margin-left: auto;
+  font-size: 0.9rem;
+}
+
+.player-item--turno {
+  background: #fff9c4;
+  border: 1.5px solid #f5c518;
+}
+
+.levelup-btn {
+  background: #9b5de5;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 4px;
+}
+
+.levelup-btn:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.levelup-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.card-item {
+  width: 48px;
+  height: 64px;
+  background: #e8d5b7;
+  border: 2px solid #b07040;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-left: -6px;
+  transition: transform 0.15s;
+  padding: 0;
+}
+
+.card-item:first-child {
+  margin-left: 0;
+}
+
+.card-item:hover:not(:disabled) {
+  transform: translateY(-6px);
+  z-index: 2;
+}
+
+.card-item:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.card-icon {
+  font-size: 1.3rem;
+}
+
+.card-label {
+  font-size: 0.55rem;
+  color: #555;
+  text-align: center;
+  max-width: 44px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Botón Negociar + contenedor acciones bottom ── */
+.bottom-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.negociar-btn {
+  background: #5b8dee;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.negociar-btn:hover { opacity: 0.85; }
+
+/* ── Ofertas entrantes en sidebar ── */
+.ofertas-entrantes {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ofertas-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #555;
+  margin: 0;
+}
+
+.oferta-item {
+  background: #fff8ee;
+  border: 1.5px solid #F5A623;
+  border-radius: 10px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.oferta-de {
+  font-size: 0.72rem;
+  color: #555;
+  margin: 0;
+}
+
+.oferta-carta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.oferta-acciones {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.oferta-aceptar {
+  flex: 1;
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.oferta-rechazar {
+  flex: 1;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+/* ── Panel inferior de evento (viento / río) — tablero queda visible ── */
+@keyframes panel-subir {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.decision-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 250;
+  animation: panel-subir 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.decision-panel-inner {
+  background: #1e293b;
+  color: white;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.decision-panel-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.decision-panel-emoji {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.decision-panel-titulo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+}
+
+.decision-panel-subtitulo {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.decision-panel-subtitulo strong {
+  color: white;
+}
+
+.decision-panel-btn {
+  background: #F5A623;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.decision-panel-btn:hover { opacity: 0.85; }
+
+/* ── Modal de decisión con overlay ── */
+@keyframes decision-entrada {
+  from { opacity: 0; transform: scale(0.9) translateY(16px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+
+.decision-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 250;
+}
+
+.decision-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  max-width: 480px;
+  width: 92%;
+  animation: decision-entrada 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.decision-emoji-grande {
+  font-size: 5rem;
+  line-height: 1;
+}
+
+.decision-titulo-grande {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #1e293b;
+  margin: 0;
+}
+
+.decision-flecha-bloque {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.decision-casilla-box {
+  background: #f1f5f9;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 14px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 90px;
+}
+
+.decision-casilla-box--destino {
+  background: #fff1f2;
+  border-color: #fca5a5;
+}
+
+.decision-casilla-label {
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.decision-casilla-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.decision-flecha {
+  font-size: 1.6rem;
+  color: #94a3b8;
+}
+
+.decision-carta-aviso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  color: #166534;
+}
+
+.decision-carta-icon { font-size: 1.5rem; }
+
+.decision-texto-decision {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.decision-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.decision-btn {
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.decision-btn:hover { opacity: 0.88; transform: scale(1.02); }
+
+.decision-btn--usar {
+  background: #22c55e;
+  color: white;
+  font-size: 1.1rem;
+  padding: 18px;
+}
+
+.decision-btn--no {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+/* ── Overlay de victoria ── */
+.victoria-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+}
+
+.victoria-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 360px;
+  width: 90%;
+}
+
+.victoria-trophy {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.victoria-titulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #333;
+  margin: 0;
+}
+
+.victoria-ganador {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #F5A623;
+  margin: 0;
+}
+
+.victoria-yo {
+  font-size: 1rem;
+  color: #16a34a;
+  font-weight: 600;
+  margin: 0;
+}
+
+.victoria-derrota {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.victoria-btn {
+  margin-top: 8px;
+  background: #F5A623;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.victoria-btn:hover { opacity: 0.85; }

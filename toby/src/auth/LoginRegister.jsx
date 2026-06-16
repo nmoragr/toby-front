@@ -1,115 +1,107 @@
 //import React, { useState, useEffect } from 'react'
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { connectSocket, getSocket } from '../common/socket'
-import './auth.css'
-import avatar0 from '../assets/avatars/avatar0.svg'
-import avatar1 from '../assets/avatars/avatar1.svg'
-import avatar2 from '../assets/avatars/avatar2.svg'
-import avatar3 from '../assets/avatars/avatar3.svg'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { connectSocket } from '../common/socket';
+import './auth.css';
+import avatar0 from '../assets/avatars/avatar0.svg';
+import avatar1 from '../assets/avatars/avatar1.svg';
+import avatar2 from '../assets/avatars/avatar2.svg';
+import avatar3 from '../assets/avatars/avatar3.svg';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export default function LoginRegister({ defaultRegister = false }){
-  const [nombre, setNombre] = useState('')
-  const [password, setPassword] = useState('')
-  const [isRegister, setIsRegister] = useState(defaultRegister)
-  const [selectedAvatar, setSelectedAvatar] = useState(0)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+  const [nombre, setNombre] = useState('');
+  const [password, setPassword] = useState('');
+  const [isRegister, setIsRegister] = useState(defaultRegister);
+  const [selectedAvatar, setSelectedAvatar] = useState(0);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const el = document.querySelector('input[name="nombre"]')
-    if (el && typeof el.focus === 'function') el.focus()
-  }, [])
+    const el = document.querySelector('input[name="nombre"]');
+    if (el && typeof el.focus === 'function') el.focus();
+  }, []);
 
   async function doLogin(nombreVal, passwordVal){
-    setError('')
-    setLoading(true)
+    setError('');
+    setLoading(true);
     try{
       const res = await fetch(`${BASE_URL}/authentication/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre: nombreVal, password: passwordVal })
-      })
-      const body = await res.json().catch(() => ({}))
+        body: JSON.stringify({ nombre: nombreVal, password: passwordVal }),
+      });
+      const body = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(body.error || body || 'Credenciales incorrectas')
-        setLoading(false)
-        return null
+        setError(body.error || body || 'Credenciales incorrectas');
+        setLoading(false);
+        return null;
       }
-      const token = body.access_token
-        if (token) {
-        localStorage.setItem('token', token)
-        localStorage.setItem('nombre', nombreVal)
+      const token = body.access_token;
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('nombre', nombreVal);
         // extraer userId del payload JWT y guardarlo localmente
         try {
-          const payload = JSON.parse(atob(token.split('.')[1] || ''))
-          const uid = payload.sub || payload.userId || null
-          if (uid) localStorage.setItem('userId', String(uid))
+          const payload = JSON.parse(atob(token.split('.')[1] || ''));
+          const uid = payload.sub || payload.userId || null;
+          const rol = payload.rol || payload.role || 'usuario';
+          if (uid) localStorage.setItem('userId', String(uid));
+          localStorage.setItem('rol', rol);
         } catch {
           // noop
         }
-        connectSocket()
-        // registrar socket en el backend
-        const s = getSocket()
-        const storedUserId = Number(localStorage.getItem('userId') || 0)
-        if (s) {
-          if (s.connected) {
-            s.emit('registrar-usuario', { userId: storedUserId, socketId: s.id })
-          } else {
-            s.on('connect', () => s.emit('registrar-usuario', { userId: storedUserId, socketId: s.id }))
-          }
-        }
-        setLoading(false)
-        navigate('/lobby')
-        return token
+        connectSocket();
+        setLoading(false);
+        navigate('/lobby');
+        return token;
       } else {
-        setError('Respuesta inválida del servidor')
+        setError('Respuesta inválida del servidor');
       }
     } catch (err){
-      setError(err.message || 'Error de red')
+      setError(err.message || 'Error de red');
     }
-    setLoading(false)
-    return null
+    setLoading(false);
+    return null;
   }
 
   async function doRegister(nombreVal, passwordVal){
-    setError('')
-    setLoading(true)
+    setError('');
+    setLoading(true);
     try{
       const res = await fetch(`${BASE_URL}/authentication/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre: nombreVal, password: passwordVal, avatar: selectedAvatar })
-      })
-      const body = await res.json().catch(() => ({}))
+        body: JSON.stringify({ nombre: nombreVal, password: passwordVal, avatar: selectedAvatar }),
+      });
+      const body = await res.json().catch(() => ({}));
       if (res.status === 201) {
         // registro exitoso -> hacer login automático
-        await doLogin(nombreVal, passwordVal)
-        return true
+        await doLogin(nombreVal, passwordVal);
+        return true;
       } else {
-        setError(body.error || JSON.stringify(body) || 'Error en registro')
+        setError(body.error || JSON.stringify(body) || 'Error en registro');
       }
     } catch (err){
-      setError(err.message || 'Error de red')
+      setError(err.message || 'Error de red');
     }
-    setLoading(false)
-    return false
+    setLoading(false);
+    return false;
   }
 
   async function handleSubmit(e){
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError('');
     if (!nombre || !password) {
-      setError('Completa nombre y contraseña')
-      return
+      setError('Completa nombre y contraseña');
+      return;
     }
     if (isRegister) {
-      await doRegister(nombre, password)
+      await doRegister(nombre, password);
     } else {
-      await doLogin(nombre, password)
+      await doLogin(nombre, password);
     }
   }
 
@@ -140,11 +132,11 @@ export default function LoginRegister({ defaultRegister = false }){
           <button type="submit" disabled={loading}>
             {loading ? 'Procesando...' : (isRegister ? 'Crear cuenta' : 'Iniciar sesión')}
           </button>
-          <button type="button" className="auth-toggle" onClick={() => { setIsRegister(v => !v); setError('') }}>
+          <button type="button" className="auth-toggle" onClick={() => { setIsRegister(v => !v); setError(''); }}>
             {isRegister ? 'Ya tengo cuenta' : 'Crear cuenta'}
           </button>
         </footer>
       </form>
     </section>
-  )
+  );
 }

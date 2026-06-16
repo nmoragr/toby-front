@@ -1,5 +1,5 @@
 // Pagina que incluya información del equipo y el sitio.
-import "./Nosotros.css";
+import './Nosotros.css';
 
 function Nosotros() {
   return (

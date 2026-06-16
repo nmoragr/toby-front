@@ -1,0 +1,180 @@
+.negociacion-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.negociacion-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.negociacion-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.negociacion-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+.negociacion-restantes {
+  font-size: 0.8rem;
+  background: #F5A623;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.negociacion-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #888;
+  padding: 4px 8px;
+}
+
+.negociacion-close:hover { color: #333; }
+
+.negociacion-error {
+  background: #fff1f1;
+  color: #9b1c1c;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.negociacion-exito {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.negociacion-exito p { color: #1a6630; font-weight: 600; }
+
+.negociacion-exito button {
+  background: #F5A623;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 24px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.negociacion-info {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.negociacion-jugadores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.jugador-btn {
+  background: #f5f5f5;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+  transition: border-color 0.15s;
+}
+
+.jugador-btn:hover { border-color: #F5A623; }
+.jugador-btn.selected { border-color: #F5A623; background: #fff8ee; }
+
+.jugador-cartas-count {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.negociacion-cartas { display: flex; flex-direction: column; gap: 8px; }
+
+.negociacion-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.cartas-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.carta-opcion {
+  background: #f5f5f5;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  min-width: 64px;
+  transition: border-color 0.15s;
+}
+
+.carta-opcion:hover { border-color: #9b5de5; }
+.carta-opcion.selected { border-color: #9b5de5; background: #f3eeff; }
+
+.negociacion-oferta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.negociacion-input {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.negociacion-input:focus { border-color: #F5A623; }
+
+.negociacion-enviar {
+  background: #F5A623;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 12px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.negociacion-enviar:hover:not(:disabled) { opacity: 0.85; }
+.negociacion-enviar:disabled { opacity: 0.5; cursor: not-allowed; }
