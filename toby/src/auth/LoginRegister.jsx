@@ -33,9 +33,17 @@ export default function LoginRegister({ defaultRegister = false }){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre: nombreVal, password: passwordVal }),
       });
-      const body = await res.json().catch(() => ({}));
+      let body;
+      try {
+        body = await res.json();
+      } catch (e) {
+        // fallback to text when server returned a plain string
+        const text = await res.text().catch(() => null);
+        body = text || {};
+      }
       if (!res.ok) {
-        setError(body.error || body || 'Credenciales incorrectas');
+        const message = (body && (body.error || (typeof body === 'string' ? body : JSON.stringify(body)))) || 'Credenciales incorrectas';
+        setError(message);
         setLoading(false);
         return null;
       }
