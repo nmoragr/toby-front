@@ -33,16 +33,25 @@ export default function LoginRegister({ defaultRegister = false }){
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre: nombreVal, password: passwordVal }),
       });
+      // Read response as text first, then try to parse JSON so we preserve raw text when server returns empty object
+      const raw = await res.text().catch(() => '');
       let body;
       try {
-        body = await res.json();
+        body = raw ? JSON.parse(raw) : null;
       } catch (e) {
-        // fallback to text when server returned a plain string
-        const text = await res.text().catch(() => null);
-        body = text || {};
+        body = raw;
       }
       if (!res.ok) {
-        const message = (body && (body.error || (typeof body === 'string' ? body : JSON.stringify(body)))) || 'Credenciales incorrectas';
+        let message = 'Credenciales incorrectas';
+        if (body) {
+          if (typeof body === 'string') message = body;
+          else if (body.error) message = body.error;
+          else if (body.message) message = body.message;
+          else {
+            const keys = Object.keys(body || {});
+            message = keys.length > 0 ? JSON.stringify(body) : raw || 'Credenciales incorrectas';
+          }
+        }
         setError(message);
         setLoading(false);
         return null;
@@ -148,3 +157,4 @@ export default function LoginRegister({ defaultRegister = false }){
     </section>
   );
 }
+
