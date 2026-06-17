@@ -18,7 +18,7 @@ Luego, en el navegador usar la siguiente url:
 
 1. Crear una cuenta: presionar "Crear cuenta". En la nueva vista desplegada, deinir un nombre de usuario, contraseña y avatar a usar.
 2. En "Lobby" se pueden ver las partidas creadas en la plataforma y crear una partida para jugar.
-3. Seleccionar "Crear Partida", lo que permitirá ver el tablero del juego.
+3. Seleccionar un Tablero y presionar "Crear Partida", lo que permitirá ver el tablero del juego.
 
 ### Simulación de partida como usuario
 Si queremos simular una partida, debemos realizar todos los pasos del apartado anterior y luego:
@@ -32,9 +32,8 @@ Si queremos simular una partida, debemos realizar todos los pasos del apartado a
 
 ### Uso a nivel de administrador
 
-1. Iniciar sesión con el usuario "admin" y contraseña "1234".
-
-Por ahora, no se diferencia mucho un administrador de un usuario, puesto que no se han implmentado las vistas de gestión que solo puede hacer un administrador. Sin embargo, al otorgar Tokens y las rutas protegidas, sí existe una diferencia entre usuarios y administrador.
+1. Iniciar sesión con el usuario "admin" y contraseña "123456".
+2. En la barra de navegación, apretar "Admin", lo que permitirá ver una pestaña que contiene la información sobre todas las partidas creadas y los usuarios que existen.
 
 ## Roles del sistema
 
@@ -53,7 +52,7 @@ Los usuarios registrados pueden:
 
 El administrador posee las mismas capacidades que un usuario normal y, adicionalmente, cuenta con permisos especiales protegidos mediante autenticación y autorización basada en tokens.
 
-Actualmente no se encuentran implementadas vistas exclusivas de administración, pero la infraestructura de permisos y rutas protegidas ya se encuentra preparada para soportarlas.
+El administrador tiene un token de "admin" y su token le permite ver información de las partidas y usuarios del juego.
 
 ## Correr las pruebas unitarias con Jest (en el backend)
 
@@ -69,6 +68,12 @@ En la consola, en la ubicación del proyecto (toby-front-2026-1/toby), correr lo
 - npx eslint .
 
 Este comando no debería mostrar ningún error, puesto que ya todos fueron arreglados
+
+## Documentación
+
+La documentación de la API puede ser vista de manera intuitiva en Postman. Los response están guardados para cada caso y recomendamos no tratar de hacer los mismos requests, ya que con los nuevos datos locales creados muchas veces se marea. 
+
+Además, con el uso de JWT, si se quieren hacer los request de usuario, para la mayoría se necesita el token de admin. Por lo tanto, para hacerlos primero se debe iniciar sesión como administrador en Postamn, rescatar el token y usarlo para las requests como header (con key authorization y value Bearer token_admin).
 
 ## Funcionalidad y eventos gestionados por websockets.
 

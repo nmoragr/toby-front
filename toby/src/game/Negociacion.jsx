@@ -76,7 +76,7 @@ export default function Negociacion({ partidaId, jugadorId, onClose, negociacion
         {exito ? (
           <div className="negociacion-exito">
             <p>{exito}</p>
-            <button onClick={onClose}>Cerrar</button>
+            <button className="negociacion-exito-btn" onClick={onClose}>Cerrar</button>
           </div>
         ) : (
           <>
